@@ -1,0 +1,47 @@
+<Project>
+  <!-- =================================================================== -->
+  <!-- Shared Properties for All Projects                                  -->
+  <!-- Azure Well-Architected: Operational Excellence - Consistency        -->
+  <!-- =================================================================== -->
+
+  <PropertyGroup>
+    <!-- Target Framework: .NET 8 LTS -->
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- Language Features -->
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Code Quality -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+
+    <!-- Build Settings -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>Recommended</AnalysisMode>
+  </PropertyGroup>
+
+  <!-- =================================================================== -->
+  <!-- Release Configuration: Stricter Quality Gates                       -->
+  <!-- =================================================================== -->
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <!-- =================================================================== -->
+  <!-- Assembly Information                                                -->
+  <!-- =================================================================== -->
+
+  <PropertyGroup>
+    <Company>Bookstore Notification System</Company>
+    <Product>Event-Driven Bookstore Notification</Product>
+    <Copyright>Copyright (c) 2026</Copyright>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+</Project>

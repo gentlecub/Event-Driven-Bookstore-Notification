@@ -1,0 +1,111 @@
+# =============================================================================
+# .NET / C# Build Artifacts
+# =============================================================================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+nuget.exe
+NuGetFallbackFolder/
+
+# =============================================================================
+# IDE and Editor Files
+# =============================================================================
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# =============================================================================
+# Azure Functions
+# =============================================================================
+local.settings.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Azure Functions Core Tools
+.azure-functions-core-tools/
+
+# =============================================================================
+# Azure and Infrastructure
+# =============================================================================
+# Azure CLI
+.azure/
+
+# Terraform (if used alongside Bicep)
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Bicep compiled output (optional - some teams commit these)
+# *.json  # Uncomment if you don't want ARM templates committed
+
+# =============================================================================
+# Secrets and Credentials (CRITICAL)
+# =============================================================================
+*.pfx
+*.p12
+*.key
+*.pem
+*.env
+.env.*
+secrets.json
+**/secrets/
+appsettings.secrets.json
+
+# Azure Service Principal files
+serviceprincipal.json
+sp-credentials.json
+
+# =============================================================================
+# Test Results
+# =============================================================================
+TestResults/
+*.trx
+coverage/
+*.coverage
+*.coveragexml
+lcov.info
+
+# =============================================================================
+# OS Generated Files
+# =============================================================================
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =============================================================================
+# Miscellaneous
+# =============================================================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
