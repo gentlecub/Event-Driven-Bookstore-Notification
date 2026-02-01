@@ -4,7 +4,25 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 
 # =============================================================================
-# Solution Folders (Virtual organization)
+# Source Projects
+# =============================================================================
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Core", "src\Bookstore.Core\Bookstore.Core.csproj", "{A1B2C3D4-1111-1111-1111-111111111111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Infrastructure", "src\Bookstore.Infrastructure\Bookstore.Infrastructure.csproj", "{A1B2C3D4-2222-2222-2222-222222222222}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Functions", "src\Bookstore.Functions\Bookstore.Functions.csproj", "{A1B2C3D4-3333-3333-3333-333333333333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Api.Demo", "src\Bookstore.Api.Demo\Bookstore.Api.Demo.csproj", "{A1B2C3D4-5555-5555-5555-555555555555}"
+EndProject
+
+# =============================================================================
+# Test Projects
+# =============================================================================
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.UnitTests", "tests\Bookstore.UnitTests\Bookstore.UnitTests.csproj", "{B1B2C3D4-4444-4444-4444-444444444444}"
+EndProject
+
+# =============================================================================
+# Solution Folders
 # =============================================================================
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}"
 EndProject
@@ -13,28 +31,42 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infra", "infra", "{C3D4E5F6-A7B8-9012-CDEF-123456789012}"
 EndProject
 
-# =============================================================================
-# C# Projects will be added here as modules are implemented
-# Example structure:
-#   - src/Bookstore.Functions        (Azure Functions)
-#   - src/Bookstore.Core             (Domain models)
-#   - src/Bookstore.Infrastructure   (Data access)
-#   - src/Bookstore.Contracts        (DTOs, Events)
-#   - tests/Bookstore.UnitTests
-#   - tests/Bookstore.IntegrationTests
-# =============================================================================
-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1B2C3D4-1111-1111-1111-111111111111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-1111-1111-1111-111111111111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-1111-1111-1111-111111111111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-1111-1111-1111-111111111111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-2222-2222-2222-222222222222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-2222-2222-2222-222222222222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-2222-2222-2222-222222222222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-2222-2222-2222-222222222222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-3333-3333-3333-333333333333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-3333-3333-3333-333333333333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-3333-3333-3333-333333333333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-3333-3333-3333-333333333333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-5555-5555-5555-555555555555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-5555-5555-5555-555555555555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-5555-5555-5555-555555555555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-5555-5555-5555-555555555555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1B2C3D4-4444-4444-4444-444444444444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1B2C3D4-4444-4444-4444-444444444444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1B2C3D4-4444-4444-4444-444444444444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1B2C3D4-4444-4444-4444-444444444444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{A1B2C3D4-1111-1111-1111-111111111111} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{A1B2C3D4-2222-2222-2222-222222222222} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{A1B2C3D4-3333-3333-3333-333333333333} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{A1B2C3D4-5555-5555-5555-555555555555} = {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
+		{B1B2C3D4-4444-4444-4444-444444444444} = {B2C3D4E5-F6A7-8901-BCDE-F12345678901}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4E5F6A7-B8C9-0123-DEF0-1234567890AB}

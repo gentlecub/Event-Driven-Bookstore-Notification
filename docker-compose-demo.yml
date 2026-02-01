@@ -1,0 +1,42 @@
+# =============================================================================
+# Bookstore Notification System - Demo Configuration
+# =============================================================================
+# This docker-compose file runs the demo version of the API with in-memory storage.
+# Perfect for local testing and Railway deployment.
+#
+# Usage:
+#   docker-compose -f docker-compose-demo.yml up --build
+#
+# Access:
+#   - Frontend: http://localhost:8080
+#   - Swagger:  http://localhost:8080/swagger
+#   - Health:   http://localhost:8080/health
+# =============================================================================
+
+version: '3.8'
+
+services:
+  bookstore-api:
+    build:
+      context: .
+      dockerfile: src/Bookstore.Api.Demo/Dockerfile
+    container_name: bookstore-demo
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+# =============================================================================
+# Notes:
+# - This demo uses in-memory storage, data is lost on container restart
+# - No external database required
+# - Railway will auto-detect and use the PORT environment variable
+# =============================================================================

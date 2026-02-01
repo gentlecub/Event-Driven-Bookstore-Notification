@@ -1,0 +1,26 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      },
+      "enableLiveMetricsFilters": true
+    },
+    "logLevel": {
+      "default": "Information",
+      "Bookstore": "Information",
+      "Function": "Information"
+    }
+  },
+  "extensions": {
+    "serviceBus": {
+      "prefetchCount": 10,
+      "messageHandlerOptions": {
+        "autoComplete": false,
+        "maxConcurrentCalls": 16
+      }
+    }
+  }
+}

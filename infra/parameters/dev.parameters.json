@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "description": "Development environment parameters - optimized for cost and rapid iteration",
+    "environment": "dev",
+    "lastUpdated": "2026-01-23"
+  },
+  "parameters": {
+    "environment": {
+      "value": "dev"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "cosmosDbConfig": {
+      "value": {
+        "serverless": true,
+        "throughput": 400,
+        "enableAutomaticFailover": false,
+        "enableMultipleWriteLocations": false,
+        "backupPolicy": "Periodic"
+      }
+    },
+    "serviceBusConfig": {
+      "value": {
+        "sku": "Basic",
+        "capacity": 0,
+        "zoneRedundant": false,
+        "messageRetentionDays": 1
+      }
+    },
+    "apimConfig": {
+      "value": {
+        "sku": "Consumption",
+        "capacity": 0,
+        "publisherEmail": "dev@bookstore.local",
+        "publisherName": "Bookstore Dev"
+      }
+    },
+    "functionAppConfig": {
+      "value": {
+        "planType": "Consumption",
+        "planSku": "Y1",
+        "alwaysOn": false,
+        "minimumInstances": 0,
+        "maximumInstances": 10
+      }
+    },
+    "keyVaultConfig": {
+      "value": {
+        "sku": "standard",
+        "enableSoftDelete": true,
+        "softDeleteRetentionDays": 7,
+        "enablePurgeProtection": false
+      }
+    },
+    "monitoringConfig": {
+      "value": {
+        "logAnalyticsTier": "Free",
+        "retentionDays": 7,
+        "enableAppInsights": true,
+        "dailyCapGb": 1
+      }
+    }
+  }
+}

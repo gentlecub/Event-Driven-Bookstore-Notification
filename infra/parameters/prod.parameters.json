@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "description": "Production environment parameters - high availability, security, and performance",
+    "environment": "prod",
+    "lastUpdated": "2026-01-23"
+  },
+  "parameters": {
+    "environment": {
+      "value": "prod"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "cosmosDbConfig": {
+      "value": {
+        "serverless": false,
+        "throughput": 1000,
+        "enableAutomaticFailover": true,
+        "enableMultipleWriteLocations": false,
+        "backupPolicy": "Continuous"
+      }
+    },
+    "serviceBusConfig": {
+      "value": {
+        "sku": "Standard",
+        "capacity": 0,
+        "zoneRedundant": false,
+        "messageRetentionDays": 7
+      }
+    },
+    "apimConfig": {
+      "value": {
+        "sku": "Basic",
+        "capacity": 1,
+        "publisherEmail": "api@bookstore.com",
+        "publisherName": "Bookstore API"
+      }
+    },
+    "functionAppConfig": {
+      "value": {
+        "planType": "Premium",
+        "planSku": "EP1",
+        "alwaysOn": true,
+        "minimumInstances": 1,
+        "maximumInstances": 30
+      }
+    },
+    "keyVaultConfig": {
+      "value": {
+        "sku": "standard",
+        "enableSoftDelete": true,
+        "softDeleteRetentionDays": 90,
+        "enablePurgeProtection": true
+      }
+    },
+    "monitoringConfig": {
+      "value": {
+        "logAnalyticsTier": "PerGB2018",
+        "retentionDays": 90,
+        "enableAppInsights": true,
+        "dailyCapGb": 10
+      }
+    }
+  }
+}

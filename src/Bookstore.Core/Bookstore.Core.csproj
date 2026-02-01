@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Bookstore.Core</RootNamespace>
+    <AssemblyName>Bookstore.Core</AssemblyName>
+    <Description>Domain models and interfaces for the Bookstore Notification System</Description>
+  </PropertyGroup>
+
+  <!-- No external dependencies - pure domain layer -->
+  <ItemGroup>
+    <!-- System.Text.Json for serialization attributes -->
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>

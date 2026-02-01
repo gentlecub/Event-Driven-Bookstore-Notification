@@ -1,72 +1,72 @@
 # Event-Driven Bookstore Notification System
 
-A cloud-native, event-driven architecture built on Microsoft Azure for managing bookstore inventory and notifying subscribers in real time when new books are added.
+A cloud-native, event-driven architecture built on Microsoft Azure for managing bookstore inventory and notifying subscribers in real-time when new books are added.
 
-## Architecture Overview
+## Architecture
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Client    │────▶│    APIM     │────▶│   Azure     │────▶│  Cosmos DB  │
-│  (API Call) │     │   Gateway   │     │  Functions  │     │  (Books/    │
-└─────────────┘     └─────────────┘     └─────────────┘     │ Subscribers)│
-                                               │            └─────────────┘
-                                               │ Publish Event
-                                               ▼
-                                        ┌─────────────┐
-                                        │ Event Grid  │
-                                        │   Topic     │
-                                        └──────┬──────┘
-                                               │
-                                               ▼
-                                        ┌─────────────┐
-                                        │ Service Bus │
-                                        │   Queue     │
-                                        └──────┬──────┘
-                                               │
-                                               ▼
-                                        ┌─────────────┐
-                                        │ Notification│
-                                        │  Processor  │
-                                        └─────────────┘
+┌──────────┐     ┌──────────┐     ┌──────────────────────────────────┐
+│  Client  │────▶│   APIM   │────▶│         Azure Functions          │
+│          │     │ Gateway  │     │  ┌─────────┐    ┌─────────────┐  │
+└──────────┘     └──────────┘     │  │Book API │    │Subscriber   │  │
+                                  │  │         │    │API          │  │
+                                  │  └────┬────┘    └──────┬──────┘  │
+                                  └───────┼────────────────┼─────────┘
+                                          │                │
+                         ┌────────────────┘                └───────────┐
+                         ▼                                             ▼
+                  ┌────────────┐                               ┌────────────┐
+                  │ Event Grid │                               │ Cosmos DB  │
+                  │   Topic    │                               │  (NoSQL)   │
+                  └─────┬──────┘                               └────────────┘
+                        ▼                                             │
+                  ┌────────────┐     ┌─────────────────────┐          │
+                  │Service Bus │────▶│Notification         │──────────┘
+                  │   Queue    │     │Processor (Function) │
+                  └────────────┘     └─────────────────────┘
 ```
 
-## Azure Services Used
+## Azure Services
 
 | Service | Purpose |
 |---------|---------|
-| **Azure API Management** | API gateway, security, rate limiting |
+| **Azure Functions** | Serverless APIs and processors (.NET 8 Isolated) |
 | **Azure Cosmos DB** | NoSQL database for books and subscribers |
-| **Azure Event Grid** | Event routing and pub/sub messaging |
-| **Azure Service Bus** | Reliable message queuing |
-| **Azure Functions** | Serverless compute for APIs and processors |
+| **Azure Event Grid** | Event routing with CloudEvents schema |
+| **Azure Service Bus** | Reliable message queuing with dead-letter |
+| **Azure API Management** | API gateway, security, rate limiting |
 | **Azure Key Vault** | Secrets management |
-| **Azure Monitor** | Observability and alerting |
+| **Application Insights** | Monitoring and observability |
 
 ## Technology Stack
 
-- **Language:** C# / .NET 8 LTS
-- **Runtime:** Azure Functions Isolated Worker
+- **Language:** C# 12 / .NET 8 LTS
+- **Runtime:** Azure Functions Isolated Worker Model
 - **Infrastructure:** Bicep (Infrastructure as Code)
+- **CI/CD:** GitHub Actions
 - **Testing:** xUnit, Moq
 
 ## Project Structure
 
 ```
-├── infra/                    # Bicep templates
-│   ├── modules/              # Reusable Bicep modules
-│   └── parameters/           # Environment-specific parameters
+├── .github/workflows/          # CI/CD pipelines
+├── docs/
+│   ├── architecture/           # System architecture & ADRs
+│   ├── api/                    # API documentation
+│   └── monitoring/             # KQL queries
+├── infra/
+│   ├── main.bicep              # Main orchestration
+│   ├── modules/                # Bicep modules
+│   └── parameters/             # Environment configs
+├── scripts/                    # Deployment scripts
 ├── src/
-│   ├── Bookstore.Functions/  # Azure Functions (HTTP triggers, etc.)
-│   ├── Bookstore.Core/       # Domain models, interfaces
-│   ├── Bookstore.Infrastructure/  # Data access, external services
-│   └── Bookstore.Contracts/  # DTOs, event schemas
-├── tests/
-│   ├── Bookstore.UnitTests/
-│   └── Bookstore.IntegrationTests/
-├── scripts/                  # Deployment and utility scripts
-├── docs/                     # Architecture documentation
-│   └── adr/                  # Architecture Decision Records
-└── study/                    # Learning modules (portfolio)
+│   ├── Bookstore.Core/         # Domain layer
+│   ├── Bookstore.Infrastructure/  # Data access & services
+│   ├── Bookstore.Functions.BookApi/
+│   ├── Bookstore.Functions.SubscriberApi/
+│   └── Bookstore.Functions.NotificationProcessor/
+├── tests/                      # Unit, Integration, Smoke tests
+└── study/                      # Learning modules (1-14)
 ```
 
 ## Getting Started
@@ -77,75 +77,69 @@ A cloud-native, event-driven architecture built on Microsoft Azure for managing 
 - [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli)
 - [Azure Functions Core Tools v4](https://docs.microsoft.com/azure/azure-functions/functions-run-local)
 - [Bicep CLI](https://docs.microsoft.com/azure/azure-resource-manager/bicep/install)
-- An Azure subscription
+
+### Build and Test
+
+```bash
+dotnet restore
+dotnet build
+dotnet test
+```
 
 ### Local Development
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd Event-Driven-Bookstore-Notification
-
-# Restore dependencies
-dotnet restore
-
-# Build the solution
-dotnet build
-
-# Run tests
-dotnet test
-
-# Run Azure Functions locally
-cd src/Bookstore.Functions
-func start
+cd src/Bookstore.Functions.BookApi
+func start --port 7071
 ```
 
-### Deployment
+### Deploy Infrastructure
 
 ```bash
-# Login to Azure
 az login
-
-# Deploy infrastructure (dev environment)
 az deployment sub create \
   --location eastus \
   --template-file infra/main.bicep \
   --parameters infra/parameters/dev.parameters.json
 ```
 
-## Architecture Patterns
+## API Endpoints
 
-- **Event-Driven Architecture** - Loose coupling via events
-- **Pub/Sub Pattern** - Event Grid for event distribution
-- **Competing Consumers** - Service Bus queue processing
-- **API Gateway** - APIM for security and management
-- **Change Data Capture** - Cosmos DB change feed
+### Book API
 
-## Learning Modules
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/books` | List all books |
+| GET | `/api/books/{id}` | Get book by ID |
+| POST | `/api/books` | Create book (triggers notification) |
+| PUT | `/api/books/{id}` | Update book |
+| DELETE | `/api/books/{id}` | Delete book |
 
-See the `study/` folder for detailed learning materials:
+### Subscriber API
 
-1. Architecture Foundation
-2. Naming Convention & Resource Organization
-3. Environment Parameterization
-4. Security & Identity
-5. Cosmos DB Data Layer
-6. API Management
-7. Event Grid Integration
-8. Service Bus Messaging
-9. Subscriber Management Service
-10. Book Inventory Service
-11. Notification Processor
-12. Monitoring & Observability
-13. Deployment Automation
-14. Documentation & Portfolio
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/subscribers` | List all subscribers |
+| POST | `/api/subscribers` | Create subscriber |
+| PUT | `/api/subscribers/{id}` | Update preferences |
+| DELETE | `/api/subscribers/{id}` | Unsubscribe |
+
+## Documentation
+
+- [System Architecture](docs/architecture/ARCHITECTURE.md)
+- [API Documentation](docs/api/README.md)
+- [ADR-001: Event-Driven Architecture](docs/architecture/adr/ADR-001-event-driven-architecture.md)
+- [ADR-002: Cosmos DB Partitioning](docs/architecture/adr/ADR-002-cosmos-db-partitioning.md)
+- [ADR-003: Managed Identity](docs/architecture/adr/ADR-003-managed-identity.md)
+
+# Documentation |
 
 ## References
 
 - [Azure Well-Architected Framework](https://docs.microsoft.com/azure/architecture/framework/)
 - [Cloud Adoption Framework](https://docs.microsoft.com/azure/cloud-adoption-framework/)
-- [Azure Event-Driven Architecture](https://docs.microsoft.com/azure/architecture/guide/architecture-styles/event-driven)
+- [Event-Driven Architecture](https://docs.microsoft.com/azure/architecture/guide/architecture-styles/event-driven)
 
 ## License
 
-This project is for educational and portfolio purposes.
+MIT License - Educational and portfolio purposes.

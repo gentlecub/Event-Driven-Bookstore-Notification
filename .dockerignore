@@ -1,0 +1,45 @@
+# =============================================================================
+# Docker Ignore File
+# =============================================================================
+
+# Git
+.git
+.gitignore
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Test results
+**/TestResults/
+**/coverage/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Infrastructure (not needed for demo)
+infra/
+
+# Study materials
+study/
+
+# Audit files
+audits/
+
+# Local settings
+**/local.settings.json
+**/.env
+**/.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

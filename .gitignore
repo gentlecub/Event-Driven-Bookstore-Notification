@@ -109,3 +109,6 @@ Desktop.ini
 *.bak
 *.swp
 *~
+docs/
+audits/
+study/
